@@ -69,6 +69,16 @@ public abstract class PokerHand {
         return mWildCount;
     }
 
+    public int getRankCount(Rank r) {
+        int count = 0;
+        for(PokerCard c : mHand) {
+            if(c.getRank() == r) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
     public boolean isInHand (PokerCard c) {
         return mHand.contains(c);
     }
@@ -190,17 +200,9 @@ public abstract class PokerHand {
 
     public Rank findXOfAKind(int x) {
         Rank r = null;
-        if(getSortedSize() >= x) {
-            for(int i = 0; i <= getSortedSize() - x && (r == null); ++i) {
-                boolean same = true;
-                for(int j = i + 1; (j < i + x) && same; ++j) {
-                    if(getSortedCardRank(i) != getSortedCardRank(j)) {
-                        same = false;
-                    }
-                }
-                if(same) {
-                    r = getCardRank(i);
-                }
+        for(int i = 0; i < size() && r == null; ++i) {
+            if(getRankCount(getCardRank(i)) == x) {
+                r = getCardRank(i);
             }
         }
         return r;
