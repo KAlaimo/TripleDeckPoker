@@ -11,28 +11,24 @@ public abstract class PokerHand {
 
     public static final int PLAY_SIZE = 5;
     public static final int MAX_BET = 5;
-    public static final int HAND_UNKNOWN = -1;
-    public static final int HAND_NO_WIN = 0;
 
     private ArrayList<PokerCard> mHand;
     private ArrayList<PokerCard> mSortedHand;
-    protected int mHandType;
-    protected int mWildCount;
+    protected HandType mHandType;
 
     public PokerHand() {
         mHand = new ArrayList<PokerCard>(PLAY_SIZE);
-        mHandType = HAND_UNKNOWN;
-        mWildCount = 0;
+        mHandType = HandType.HAND_UNKNOWN;
     }
 
     public void addCard(PokerCard c) {
         mHand.add(c);
-        mHandType = HAND_UNKNOWN;
+        mHandType = HandType.HAND_UNKNOWN;
     }
 
     public void replaceCard(int cardNum, PokerCard c) {
         mHand.set(cardNum, c);
-        mHandType = HAND_UNKNOWN;
+        mHandType = HandType.HAND_UNKNOWN;
     }
 
     public PokerCard getCard(int cardNum) {
@@ -55,19 +51,7 @@ public abstract class PokerHand {
         getCard(cardNum).toggleHold();
     }
 
-    public boolean isWild(int cardNum) {
-        return getCard(cardNum).isWild();
-    }
 
-    public int getWildCount() {
-        mWildCount = 0;
-        for(PokerCard c : mHand) {
-            if(c.isWild()) {
-                ++mWildCount;
-            }
-        }
-        return mWildCount;
-    }
 
     public int getRankCount(Rank r) {
         int count = 0;
@@ -99,12 +83,15 @@ public abstract class PokerHand {
             mSortedHand.clear();
             mSortedHand = null;
         }
-        mWildCount = 0;
-        mHandType = HAND_UNKNOWN;
+        mHandType = HandType.HAND_UNKNOWN;
     }
 
     public int size() {
-        return mHand.size();
+        int cardCount = 0;
+        if(mHand != null) {
+            cardCount = mHand.size();
+        }
+        return cardCount;
     }
 
     public void sort() {
@@ -142,9 +129,9 @@ public abstract class PokerHand {
 
     public boolean allSameSuit() {
         boolean same = false;
-        Suit suit = getSortedCardSuit(0);
-        for(int i = 1; i < getSortedSize() && same; ++i) {
-            if(getSortedCardSuit(i) != suit) {
+        Suit suit = getCardSuit(0);
+        for(int i = 1; i < size() && same; ++i) {
+            if(getCardSuit(i) != suit) {
                 same = false;
             }
         }
@@ -155,7 +142,7 @@ public abstract class PokerHand {
         boolean straight = true;
         for(int i = 0; (i < getSortedSize() - 1) && straight; ++i) {
             if(i == 0 && getSortedCardRank(i) == Rank.ACE) {
-                /* Ace is a special case, can have A23456 or 10JQKA (sorted as A10JQK) as a straight */
+                /* Ace is a special case, can have A2345 or 10JQKA (sorted as A10JQK) as a straight */
                 if(getSortedCardRank(i+1) != Rank.TEN && getSortedCardRank(i+1) != Rank.DEUCE) {
                     straight = false;
                 }
@@ -169,7 +156,7 @@ public abstract class PokerHand {
 
     public boolean isFullHouse() {
         boolean fullHouse = false;
-        if(getSortedSize() >= 5) {
+        if(getSortedSize() == 5) {
             if(getSortedCardRank(0) == getSortedCardRank(1) && getSortedCardRank(1) == getSortedCardRank(2) &&
                     getSortedCardRank(3) == getSortedCardRank(4)) {
                 fullHouse = true;
@@ -263,7 +250,7 @@ public abstract class PokerHand {
         }
     }
 
-    public abstract int getHandType();
+    public abstract HandType getHandType();
     public abstract int getPayout(int bet);
     public abstract String getGameName();
     public abstract void autoHold();

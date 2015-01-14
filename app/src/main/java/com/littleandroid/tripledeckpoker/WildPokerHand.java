@@ -8,6 +8,20 @@ public abstract class WildPokerHand extends PokerHand {
 
     }
 
+    public boolean isWild(int cardNum) {
+        return getCard(cardNum).isWild();
+    }
+
+    public int getWildCount() {
+        int wildCount = 0;
+        for(int i = 0; i < size(); ++i) {
+            if(isWild(i)) {
+                ++wildCount;
+            }
+        }
+        return wildCount;
+    }
+
     @Override
     public boolean allSameSuit() {
         boolean same = true;

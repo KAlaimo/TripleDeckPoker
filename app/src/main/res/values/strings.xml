@@ -4,5 +4,32 @@
     <string name="app_name">Triple Deck Poker</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="game_jacks_or_better">Jacks or Better</string>
+    <string name="game_aces_face">Aces Faces</string>
+    <string name="game_deuces_wild">Deuces Wild</string>
+    <string name="game_double_bonus">Double Bonus</string>
+    <string name="game_double_double_bonus">Double Double Bonus</string>
+    <string name="game_joker_poker">Joker Poker</string>
+    <string name="hand_lose">Lose</string>
+    <string name="hand_royal_flush">Royal Flush</string>
+    <string name="hand_five_of_a_kind">Five of a Kind</string>
+    <string name="hand_wild_royal_flush">Wild Royal Flush</string>
+    <string name="hand_straight_flush">Straight Flush</string>
+    <string name="hand_four_of_a_kind">Four of a Kind</string>
+    <string name="hand_full_house">Full House</string>
+    <string name="hand_flush">Flush</string>
+    <string name="hand_straight">Straight</string>
+    <string name="hand_three_of_a_kind">Three of a Kind</string>
+    <string name="hand_two_pairs">Two Pairs</string>
+    <string name="hand_kings_or_better">Kings or Better</string>
+    <string name="hand_four_aces">Four Aces</string>
+    <string name="hand_four_faces">Four Faces</string>
+    <string name="hand_four_deuces">Four Deuces</string>
+    <string name="hand_four_2_4">Four of 2 to 4</string>
+    <string name="hand_four_5_k">Four of 5 to K</string>
+    <string name="hand_four_aces_2_4">Four Aces and 2 to 4</string>
+    <string name="hand_four_2_4_ace">Four 2 to 4 and Ace</string>
+    <string name="hand_unknown">Unknown</string>
+    <string name="hand_jacks_or_better">Jacks or Better</string>
 
 </resources>

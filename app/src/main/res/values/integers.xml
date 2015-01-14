@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="payout_lose">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+    <integer-array name="payout_aces_royal_flush">
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>4000</item>
+    </integer-array>
+    <integer-array name="payout_aces_straight_flush">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_aces_four_aces">
+        <item>60</item>
+        <item>160</item>
+        <item>240</item>
+        <item>320</item>
+        <item>400</item>
+    </integer-array>
+    <integer-array name="payout_aces_four_faces">
+        <item>40</item>
+        <item>80</item>
+        <item>120</item>
+        <item>160</item>
+        <item>200</item>
+    </integer-array>
+    <integer-array name="payout_aces_four_of_a_kind">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+        <item>125</item>
+    </integer-array>
+    <integer-array name="payout_aces_full_house">
+        <item>8</item>
+        <item>16</item>
+        <item>24</item>
+        <item>32</item>
+        <item>40</item>
+    </integer-array>
+    <integer-array name="payout_aces_flush">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+    </integer-array>
+    <integer-array name="payout_aces_straight">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+        <item>20</item>
+    </integer-array>
+    <integer-array name="payout_aces_three_of_a_kind">
+        <item>3</item>
+        <item>6</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="payout_aces_two_pairs">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="payout_aces_jacks_or_better">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_deuces_royal_flush">
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>4000</item>
+    </integer-array>
+    <integer-array name="payout_deuces_four_deuces">
+        <item>200</item>
+        <item>400</item>
+        <item>600</item>
+        <item>800</item>
+        <item>1000</item>
+    </integer-array>
+    <integer-array name="payout_deuces_wild_royal_flush">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+        <item>125</item>
+    </integer-array>
+    <integer-array name="payout_deuces_five_of_a_kind">
+        <item>16</item>
+        <item>32</item>
+        <item>48</item>
+        <item>64</item>
+        <item>80</item>
+    </integer-array>
+    <integer-array name="payout_deuces_straight_flush">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </integer-array>
+    <integer-array name="payout_deuces_four_of_a_kind">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+        <item>20</item>
+    </integer-array>
+    <integer-array name="payout_deuces_full_house">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+        <item>20</item>
+    </integer-array>
+    <integer-array name="payout_deuces_flush">
+        <item>3</item>
+        <item>6</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="payout_deuces_straight">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="payout_deuces_three_of_a_kind">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_db_royal_flush">
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>4000</item>
+    </integer-array>
+    <integer-array name="payout_db_straight_flush">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_db_four_aces">
+        <item>160</item>
+        <item>320</item>
+        <item>480</item>
+        <item>640</item>
+        <item>800</item>
+    </integer-array>
+    <integer-array name="payout_db_four_of_2_to_4">
+        <item>80</item>
+        <item>160</item>
+        <item>240</item>
+        <item>320</item>
+        <item>400</item>
+    </integer-array>
+    <integer-array name="payout_db_four_of_5_to_k">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_db_full_house">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </integer-array>
+    <integer-array name="payout_db_flush">
+        <item>7</item>
+        <item>14</item>
+        <item>21</item>
+        <item>28</item>
+        <item>35</item>
+    </integer-array>
+    <integer-array name="payout_db_straight">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+    </integer-array>
+    <integer-array name="payout_db_three_of_a_kind">
+        <item>3</item>
+        <item>6</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="payout_db_two_pairs">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_db_jacks_or_better">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_ddb_royal_flush">
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>4000</item>
+    </integer-array>
+    <integer-array name="payout_ddb_straight_flush">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_ddb_four_aces_234">
+        <item>400</item>
+        <item>800</item>
+        <item>1200</item>
+        <item>1600</item>
+        <item>2000</item>
+    </integer-array>
+    <integer-array name="payout_ddb_four_234_ace">
+        <item>160</item>
+        <item>320</item>
+        <item>480</item>
+        <item>640</item>
+        <item>800</item>
+    </integer-array>
+    <integer-array name="payout_ddb_four_aces">
+        <item>160</item>
+        <item>320</item>
+        <item>480</item>
+        <item>640</item>
+        <item>800</item>
+    </integer-array>
+    <integer-array name="payout_ddb_four_2_to_4">
+        <item>80</item>
+        <item>160</item>
+        <item>240</item>
+        <item>320</item>
+        <item>400</item>
+    </integer-array>
+    <integer-array name="payout_ddb_four_5_to_k">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_ddb_full_house">
+        <item>9</item>
+        <item>18</item>
+        <item>27</item>
+        <item>36</item>
+        <item>45</item>
+    </integer-array>
+    <integer-array name="payout_ddb_flush">
+        <item>6</item>
+        <item>12</item>
+        <item>18</item>
+        <item>24</item>
+        <item>30</item>
+    </integer-array>
+    <integer-array name="payout_ddb_straight">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+        <item>20</item>
+    </integer-array>
+    <integer-array name="payout_ddb_three_of_a_kind">
+        <item>3</item>
+        <item>6</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="payout_ddb_two_pairs">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_ddb_jacks_or_better">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_jacks_royal_flush">
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>4000</item>
+    </integer-array>
+    <integer-array name="payout_jacks_straight_flush">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_jacks_four_of_a_kind">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+        <item>125</item>
+    </integer-array>
+    <integer-array name="payout_jacks_full_house">
+        <item>9</item>
+        <item>18</item>
+        <item>27</item>
+        <item>36</item>
+        <item>45</item>
+    </integer-array>
+    <integer-array name="payout_jacks_flush">
+        <item>6</item>
+        <item>12</item>
+        <item>18</item>
+        <item>24</item>
+        <item>30</item>
+    </integer-array>
+    <integer-array name="payout_jacks_straight">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+        <item>20</item>
+    </integer-array>
+    <integer-array name="payout_jacks_three_of_kind">
+        <item>3</item>
+        <item>6</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="payout_jacks_two_pairs">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="payout_jacks_jacks_or_better">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_joker_royal_flush">
+        <item>750</item>
+        <item>1500</item>
+        <item>2250</item>
+        <item>3000</item>
+        <item>5000</item>
+    </integer-array>
+    <integer-array name="payout_joker_five_of_a_kind">
+        <item>200</item>
+        <item>400</item>
+        <item>600</item>
+        <item>800</item>
+        <item>1000</item>
+    </integer-array>
+    <integer-array name="payout_joker_wild_royal_flush">
+        <item>100</item>
+        <item>200</item>
+        <item>300</item>
+        <item>400</item>
+        <item>500</item>
+    </integer-array>
+    <integer-array name="payout_joker_straight_flush">
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+    </integer-array>
+    <integer-array name="payout_joker_four_of_a_kind">
+        <item>17</item>
+        <item>34</item>
+        <item>51</item>
+        <item>68</item>
+        <item>85</item>
+    </integer-array>
+    <integer-array name="payout_joker_full_house">
+        <item>7</item>
+        <item>14</item>
+        <item>21</item>
+        <item>28</item>
+        <item>35</item>
+    </integer-array>
+    <integer-array name="payout_joker_flush">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+    </integer-array>
+    <integer-array name="payout_joker_straight">
+        <item>3</item>
+        <item>6</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="payout_joker_three_of_a_kind">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="payout_joker_two_pairs">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="payout_joker_kings_or_better">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+</resources>
