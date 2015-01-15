@@ -234,4 +234,17 @@ public abstract class WildPokerHand extends PokerHand {
             }
         }
     }
+
+    @Override
+    public void autoHold() {
+        holdWilds();
+        if(mHandType == HandType.HAND_WILD_ROYAL_FLUSH ||
+                mHandType == HandType.HAND_FIVE_OF_A_KIND ||
+                mHandType == HandType.HAND_FOUR_DEUCES) {
+            holdAll();
+        }
+        else {
+            super.autoHold();
+        }
+    }
 }

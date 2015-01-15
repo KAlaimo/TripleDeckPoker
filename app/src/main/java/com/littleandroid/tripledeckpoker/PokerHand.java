@@ -12,6 +12,8 @@ public abstract class PokerHand {
     public static final int PLAY_SIZE = 5;
     public static final int MAX_BET = 5;
 
+    protected String mGameName;
+
     private ArrayList<PokerCard> mHand;
     private ArrayList<PokerCard> mSortedHand;
     protected HandType mHandType;
@@ -19,6 +21,10 @@ public abstract class PokerHand {
     public PokerHand() {
         mHand = new ArrayList<PokerCard>(PLAY_SIZE);
         mHandType = HandType.HAND_UNKNOWN;
+    }
+
+    public String getGameName() {
+        return mGameName;
     }
 
     public void addCard(PokerCard c) {
@@ -250,9 +256,31 @@ public abstract class PokerHand {
         }
     }
 
+    public void autoHold() {
+        switch(mHandType) {
+            case HAND_ROYAL_FLUSH:
+            case HAND_FULL_HOUSE:
+            case HAND_STRAIGHT_FLUSH:
+            case HAND_STRAIGHT:
+            case HAND_FLUSH:
+            case HAND_FOUR_2_TO_4_AND_ACE:
+            case HAND_FOUR_ACES_AND_2_TO_4: holdAll();
+                                            break;
+            case HAND_FOUR_ACES:
+            case HAND_FOUR_2_TO_4:
+            case HAND_FOUR_5_TO_K:
+            case HAND_FOUR_FACES:
+            case HAND_FOUR_OF_A_KIND:
+            case HAND_JACKS_OR_BETTER:
+            case HAND_KINGS_OR_BETTER:
+            case HAND_THREE_OF_A_KIND:
+            case HAND_TWO_PAIRS:         holdPairs();
+                                         break;
+
+        }
+    }
+
     public abstract HandType getHandType();
     public abstract int getPayout(int bet);
-    public abstract String getGameName();
-    public abstract void autoHold();
 
 }
