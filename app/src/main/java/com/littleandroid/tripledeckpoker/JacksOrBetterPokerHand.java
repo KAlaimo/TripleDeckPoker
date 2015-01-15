@@ -6,30 +6,28 @@ import android.content.res.Resources;
 import java.util.EnumMap;
 
 /**
- * Created by Kristen on 1/14/2015.
+ * Created by Kristen on 1/15/2015.
  */
-public class DoubleBonusPokerHand extends PokerHand {
+public class JacksOrBetterPokerHand extends PokerHand {
     private Context mContext;
     private EnumMap<HandType, int[]> mPayoutTable = new EnumMap<HandType,int[]>(HandType.class);
 
-    public DoubleBonusPokerHand(Context context) {
+    public JacksOrBetterPokerHand(Context context) {
         mContext = context.getApplicationContext();  // exists for life of app
         Resources r = mContext.getResources();
 
-        mGameName = r.getString(R.string.game_double_bonus);
+        mGameName = r.getString(R.string.game_jacks_or_better);
 
         mPayoutTable.put(HandType.HAND_LOSE, r.getIntArray(R.array.payout_lose));
-        mPayoutTable.put(HandType.HAND_ROYAL_FLUSH, r.getIntArray(R.array.payout_db_royal_flush));
-        mPayoutTable.put(HandType.HAND_STRAIGHT_FLUSH, r.getIntArray(R.array.payout_db_straight_flush));
-        mPayoutTable.put(HandType.HAND_FOUR_ACES, r.getIntArray(R.array.payout_db_four_aces));
-        mPayoutTable.put(HandType.HAND_FOUR_2_TO_4, r.getIntArray(R.array.payout_db_four_of_2_to_4));
-        mPayoutTable.put(HandType.HAND_FOUR_5_TO_K, r.getIntArray(R.array.payout_db_four_of_5_to_k));
-        mPayoutTable.put(HandType.HAND_FULL_HOUSE, r.getIntArray(R.array.payout_db_full_house));
-        mPayoutTable.put(HandType.HAND_FLUSH, r.getIntArray(R.array.payout_db_flush));
-        mPayoutTable.put(HandType.HAND_STRAIGHT, r.getIntArray(R.array.payout_db_straight));
-        mPayoutTable.put(HandType.HAND_THREE_OF_A_KIND, r.getIntArray(R.array.payout_db_three_of_a_kind));
-        mPayoutTable.put(HandType.HAND_TWO_PAIRS, r.getIntArray(R.array.payout_db_two_pairs));
-        mPayoutTable.put(HandType.HAND_JACKS_OR_BETTER, r.getIntArray(R.array.payout_db_jacks_or_better));
+        mPayoutTable.put(HandType.HAND_ROYAL_FLUSH, r.getIntArray(R.array.payout_jacks_royal_flush));
+        mPayoutTable.put(HandType.HAND_STRAIGHT_FLUSH, r.getIntArray(R.array.payout_jacks_straight_flush));
+        mPayoutTable.put(HandType.HAND_FOUR_OF_A_KIND, r.getIntArray(R.array.payout_jacks_four_of_a_kind));
+        mPayoutTable.put(HandType.HAND_FULL_HOUSE, r.getIntArray(R.array.payout_jacks_full_house));
+        mPayoutTable.put(HandType.HAND_FLUSH, r.getIntArray(R.array.payout_jacks_flush));
+        mPayoutTable.put(HandType.HAND_STRAIGHT, r.getIntArray(R.array.payout_jacks_straight));
+        mPayoutTable.put(HandType.HAND_THREE_OF_A_KIND, r.getIntArray(R.array.payout_jacks_three_of_kind));
+        mPayoutTable.put(HandType.HAND_TWO_PAIRS, r.getIntArray(R.array.payout_jacks_two_pairs));
+        mPayoutTable.put(HandType.HAND_JACKS_OR_BETTER, r.getIntArray(R.array.payout_jacks_jacks_or_better));
     }
 
     @Override
@@ -50,18 +48,7 @@ public class DoubleBonusPokerHand extends PokerHand {
                 }
             }
             else if(isFourOfAKind()) {
-                switch (fourKinds()) {
-                    case ACE:
-                        mHandType = HandType.HAND_FOUR_ACES;
-                        break;
-                    case DEUCE:
-                    case THREE:
-                    case FOUR:
-                        mHandType = HandType.HAND_FOUR_2_TO_4;
-                        break;
-                    default:
-                        mHandType = HandType.HAND_FOUR_5_TO_K;
-                }
+                mHandType = HandType.HAND_FIVE_OF_A_KIND;
             }
             else if(isFullHouse()) {
                 mHandType = HandType.HAND_FULL_HOUSE;

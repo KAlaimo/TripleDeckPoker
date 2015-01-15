@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Array used for all games. -->
     <integer-array name="payout_lose">
         <item>0</item>
         <item>0</item>
@@ -7,6 +8,7 @@
         <item>0</item>
         <item>0</item>
     </integer-array>
+    <!-- Arrays used for Aces Faces -->
     <integer-array name="payout_aces_royal_flush">
         <item>250</item>
         <item>500</item>
@@ -84,6 +86,7 @@
         <item>4</item>
         <item>5</item>
     </integer-array>
+    <!-- Arrays used for Deuces Wild -->
     <integer-array name="payout_deuces_royal_flush">
         <item>250</item>
         <item>500</item>
@@ -154,6 +157,7 @@
         <item>4</item>
         <item>5</item>
     </integer-array>
+    <!-- Arrays used for Double Bonus -->
     <integer-array name="payout_db_royal_flush">
         <item>250</item>
         <item>500</item>
@@ -231,6 +235,7 @@
         <item>4</item>
         <item>5</item>
     </integer-array>
+    <!-- Arrays used for Double Double Bonus -->
     <integer-array name="payout_ddb_royal_flush">
         <item>250</item>
         <item>500</item>
@@ -322,6 +327,7 @@
         <item>4</item>
         <item>5</item>
     </integer-array>
+    <!-- Arrays used for Jacks or Better -->
     <integer-array name="payout_jacks_royal_flush">
         <item>250</item>
         <item>500</item>
@@ -385,6 +391,7 @@
         <item>4</item>
         <item>5</item>
     </integer-array>
+    <!-- Arrays used for Joker Poker -->
     <integer-array name="payout_joker_royal_flush">
         <item>750</item>
         <item>1500</item>

@@ -3,8 +3,7 @@ package com.littleandroid.tripledeckpoker;
 import android.content.Context;
 import android.content.res.Resources;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 
 /**
@@ -13,7 +12,7 @@ import java.util.Map;
 public class DeucesWildPokerHand extends WildPokerHand {
 
     private Context mContext;
-    private Map<HandType, int[]> mPayoutTable = new HashMap<HandType,int[]>();
+    private EnumMap<HandType, int[]> mPayoutTable = new EnumMap<HandType,int[]>(HandType.class);
 
     public DeucesWildPokerHand(Context context) {
         mContext = context.getApplicationContext();  // exists for life of app

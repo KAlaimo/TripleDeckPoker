@@ -122,6 +122,21 @@ public abstract class WildPokerHand extends PokerHand {
     }
 
     @Override
+    public boolean isTwoPairs() {
+        boolean twoPairs = super.isTwoPairs();
+        if(!twoPairs && getWildCount() == 1) {
+            // If we have one wild card, then we only need to find 1 pair.
+            for(int i = 0; (i < getSortedSize() - 1) && !twoPairs; ++i) {
+                if(getSortedCardRank(i) == getSortedCardRank(i+1)) {
+                    twoPairs = true;
+                }
+            }
+        }
+        return twoPairs;
+
+    }
+
+    @Override
     public boolean isStraight() {
         boolean straight = false;
         int lowIndex = -1;
