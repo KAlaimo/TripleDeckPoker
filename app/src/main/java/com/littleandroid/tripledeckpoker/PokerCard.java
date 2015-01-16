@@ -33,16 +33,8 @@ public class PokerCard {
         return mRank;
     }
 
-    public void setRank(Rank rank) {
-        mRank = rank;
-    }
-
     public Suit getSuit() {
         return mSuit;
-    }
-
-    public void setSuit(Suit suit) {
-        mSuit = suit;
     }
 
     public boolean isHeld() {
