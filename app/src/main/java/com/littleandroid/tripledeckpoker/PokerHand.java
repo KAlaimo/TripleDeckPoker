@@ -134,7 +134,7 @@ public abstract class PokerHand {
     }
 
     public boolean allSameSuit() {
-        boolean same = false;
+        boolean same = true;
         Suit suit = getCardSuit(0);
         for(int i = 1; i < size() && same; ++i) {
             if(getCardSuit(i) != suit) {

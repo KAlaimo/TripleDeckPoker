@@ -98,7 +98,7 @@ public class PokerCard {
         }
 
         PokerCard c = (PokerCard) o;
-        return (this.getIndex() == c.getIndex());
+        return (this.getRank() == c.getRank() && this.getSuit() == c.getSuit());
     }
 
     @Override

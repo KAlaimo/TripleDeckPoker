@@ -48,7 +48,7 @@ public class JacksOrBetterPokerHand extends PokerHand {
                 }
             }
             else if(isFourOfAKind()) {
-                mHandType = HandType.HAND_FIVE_OF_A_KIND;
+                mHandType = HandType.HAND_FOUR_OF_A_KIND;
             }
             else if(isFullHouse()) {
                 mHandType = HandType.HAND_FULL_HOUSE;
