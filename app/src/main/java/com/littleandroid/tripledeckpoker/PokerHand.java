@@ -281,6 +281,8 @@ public abstract class PokerHand {
     }
 
     public abstract HandType getHandType();
+    public abstract String getHandTypeString();
+    public abstract boolean isValidHandType(HandType hand);
     public abstract int getPayout(int bet);
 
 }

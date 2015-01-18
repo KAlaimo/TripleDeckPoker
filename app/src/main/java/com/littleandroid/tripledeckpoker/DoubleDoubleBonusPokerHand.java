@@ -103,6 +103,11 @@ public class DoubleDoubleBonusPokerHand extends PokerHand {
     }
 
     @Override
+    public String getHandTypeString() {
+        return mContext.getResources().getString(mHandType.getHandResourceID());
+    }
+
+    @Override
     public int getPayout(int bet) {
         int pay = 0;
         if(bet >= 1 && bet <= MAX_BET) {
@@ -110,5 +115,10 @@ public class DoubleDoubleBonusPokerHand extends PokerHand {
             pay = arr[bet-1];
         }
         return pay;
+    }
+
+    @Override
+    public boolean isValidHandType(HandType hand) {
+        return mPayoutTable.keySet().contains(hand);
     }
 }

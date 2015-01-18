@@ -21,6 +21,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         testJacksOrBetterPokerHand();
         testDoubleBonusPokerHand();
         testDoubleDoubleBonusPokerHand();
+        testAcesFacesPokerHand();
+        testDeucesWildPokerHand();
    }
 
     private void testPokerCard() {
@@ -31,28 +33,28 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         PokerCard card5 = new PokerCard(Rank.JOKER, null);
 
         boolean result = card1.equals(card1);
-        assertEquals(true, result);
+        assertTrue("card1 card1", result);
 
         result = card1.equals(card2);
-        assertEquals(true, result);
+        assertTrue("card1 card2", result);
 
         result = card1.equals(card3);
-        assertEquals(false, result);
+        assertFalse("card1 card3", result);
 
         result = card1.equals(card4);
-        assertEquals(false, result);
+        assertFalse("card1 card4", result);
 
         result = card1.equals(card5);
-        assertEquals(false, result);
+        assertFalse("card1 card5", result);
 
         result = card1.isFace();
-        assertEquals(false, result);
+        assertFalse("card1 face", result);
 
         result = card4.isFace();
-        assertEquals(true, result);
+        assertTrue("card4 face", result);
 
         result = card5.isFace();
-        assertEquals(false, result);
+        assertFalse("card5 face", result);
     }
 
     private void testPokerDeck() {
@@ -86,67 +88,282 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     private void testJacksOrBetterPokerHand() {
         JacksOrBetterPokerHand pokerHand = new JacksOrBetterPokerHand(getContext());
-        testPokerHand(pokerHand);
+        int testCount = testPokerHand(pokerHand);
+        assertEquals(pokerHand.getGameName() + " failed test count", 9, testCount);
 
-        pokerHand.clearHand();
-        makeFourOfAKind(pokerHand);
-        HandType hand = pokerHand.getHandType();
-        boolean isFourOfAKind = hand == HandType.HAND_FOUR_OF_A_KIND;
-        assertEquals(true, isFourOfAKind);
+        // check payout of previous hand
+        //int payout = pokerHand.getPayout(2);
+        //assertEquals(pokerHand.getGameName() + " failed payout test", 50, payout);
     }
 
     private void testDoubleBonusPokerHand() {
         DoubleBonusPokerHand pokerHand = new DoubleBonusPokerHand(getContext());
-        testPokerHand(pokerHand);
+        int testCount = testPokerHand(pokerHand);
+        assertEquals(pokerHand.getGameName() + " failed test count", 11, testCount);
+
+        // check payout of previous hand
+        //int payout = pokerHand.getPayout(3);
+        //assertEquals(pokerHand.getGameName() + " failed payout test", 150, payout);
     }
 
     private void testDoubleDoubleBonusPokerHand() {
         DoubleDoubleBonusPokerHand pokerHand = new DoubleDoubleBonusPokerHand(getContext());
-        testPokerHand(pokerHand);
+        int testCount = testPokerHand(pokerHand);
+        assertEquals(pokerHand.getGameName() + " failed test count", 13, testCount);
+
+        // check payout of previous hand
+        //int payout = pokerHand.getPayout(5);
+        //assertEquals(pokerHand.getGameName() + " failed payout test", 800, payout);
     }
 
-    private void testPokerHand(PokerHand p) {
-        makeFullHouse(p);
-        HandType hand = p.getHandType();
+    private void testAcesFacesPokerHand() {
+        AcesFacesPokerHand pokerHand = new AcesFacesPokerHand(getContext());
+        int testCount = testPokerHand(pokerHand);
+        assertEquals(pokerHand.getGameName() + " failed test count", 11, testCount);
+
+        // check payout of previous hand
+        //int payout = pokerHand.getPayout(1);
+        //assertEquals(pokerHand.getGameName() + " failed payout test", 40, payout);
+    }
+
+    private void testDeucesWildPokerHand() {
+        DeucesWildPokerHand pokerHand = new DeucesWildPokerHand(getContext());
+        int testCount = testPokerHand(pokerHand); // test standard hands without wild cards
+        assertEquals(pokerHand.getGameName() + " failed test count", 7, testCount);
+
+        PokerCard deuce1 = new PokerCard(Rank.DEUCE, Suit.HEARTS);
+        deuce1.setWild(true);
+        PokerCard deuce2 = new PokerCard(Rank.DEUCE, Suit.DIAMONDS);
+        deuce2.setWild(true);
+        PokerCard deuce3 = new PokerCard(Rank.DEUCE, Suit.SPADES);
+        deuce3.setWild(true);
+        PokerCard deuce4 = new PokerCard(Rank.DEUCE, Suit.CLUBS);
+        deuce4.setWild(true);
+
+        makeNaturalRoyalFlush(pokerHand);
+        pokerHand.replaceCard(2, deuce1);
+        pokerHand.replaceCard(3, deuce2);
+        HandType hand = pokerHand.getHandType();
+        boolean isWildRoyalFlush = hand == HandType.HAND_WILD_ROYAL_FLUSH;
+        assertTrue(pokerHand.getGameName() + " failed Wild Royal Flush", isWildRoyalFlush);
+
+        pokerHand.clearHand();
+        makeFullHouse(pokerHand);
+        pokerHand.replaceCard(0, deuce3);
+        int wildCount = pokerHand.getWildCount();
+        assertEquals(pokerHand.getGameName() + " failed wild count: " + wildCount, 1, wildCount);
+        hand = pokerHand.getHandType();
         boolean isFullHouse = hand == HandType.HAND_FULL_HOUSE;
-        assertEquals(true, isFullHouse);
+        assertTrue(pokerHand.getGameName() + " failed Full House with Wilds: " + getContext().getResources().getString(hand.getHandResourceID()), isFullHouse);
+
+        pokerHand.clearHand();
+        makeStraight(pokerHand);
+        pokerHand.replaceCard(0, deuce4);
+        pokerHand.replaceCard(3, deuce1);
+        hand = pokerHand.getHandType();
+        boolean isStraight = hand == HandType.HAND_STRAIGHT;
+        assertTrue(pokerHand.getGameName() + " failed Straight with Wilds: " + getContext().getResources().getString(hand.getHandResourceID()), isStraight);
+
+        pokerHand.clearHand();
+        makeStraightWithAce(pokerHand);
+        pokerHand.replaceCard(0, deuce3);
+        wildCount = pokerHand.getWildCount();
+        assertEquals(pokerHand.getGameName() + " failed wild count: " + wildCount, 1, wildCount);
+        assertEquals(pokerHand.getGameName() + " failed sorted card", Rank.ACE.ordinal(), pokerHand.getSortedCard(0).getRank().ordinal());
+        hand = pokerHand.getHandType();
+        isStraight = hand == HandType.HAND_STRAIGHT;
+        assertTrue(pokerHand.getGameName() + " failed Straight with Ace and Wilds: " + getContext().getResources().getString(hand.getHandResourceID()), isStraight);
+
+
+        pokerHand.clearHand();
+        makeFlush(pokerHand);
+        pokerHand.replaceCard(2, deuce2);
+        pokerHand.replaceCard(3, deuce3);
+        hand = pokerHand.getHandType();
+        boolean isFlush = hand == HandType.HAND_FLUSH;
+        assertTrue(pokerHand.getGameName() + " failed Flush with Wilds: " + getContext().getResources().getString(hand.getHandResourceID()), isFlush);
+
+        pokerHand.clearHand();
+        pokerHand.addCard(deuce1);
+        pokerHand.addCard(deuce2);
+        pokerHand.addCard(deuce3);
+        pokerHand.addCard(deuce4);
+        pokerHand.addCard(new PokerCard(Rank.THREE, Suit.SPADES));
+        hand = pokerHand.getHandType();
+        boolean isFourDeuces = hand == HandType.HAND_FOUR_DEUCES;
+        assertTrue(pokerHand.getGameName() + " failed Four Deuces", isFourDeuces);
+
+        pokerHand.clearHand();
+        pokerHand.addCard(new PokerCard(Rank.SIX, Suit.CLUBS));
+        pokerHand.addCard(new PokerCard(Rank.SIX, Suit.DIAMONDS));
+        pokerHand.addCard(deuce1);
+        pokerHand.addCard(deuce2);
+        pokerHand.addCard(deuce3);
+        hand = pokerHand.getHandType();
+        boolean isFiveOfAKind = hand == HandType.HAND_FIVE_OF_A_KIND;
+        assertTrue(pokerHand.getGameName() + " failed Five of a Kind", isFiveOfAKind);
+
+        pokerHand.clearHand();
+        makeThreeOfAKind(pokerHand);
+        pokerHand.replaceCard(0, deuce1);
+        hand = pokerHand.getHandType();
+        boolean isThreeOfAKind = hand == HandType.HAND_THREE_OF_A_KIND;
+        assertTrue(pokerHand.getGameName() + " failed Three of a Kind with Wilds", isThreeOfAKind);
+
+        // check payout of previous hand
+        //int payout = pokerHand.getPayout(1);
+        //assertEquals(pokerHand.getGameName() + " failed payout test", 1, payout);
+    }
+
+    private int testPokerHand(PokerHand p) {
+        int testCount = 0; // Count hand types tested
+
+        if(p.isValidHandType(HandType.HAND_FULL_HOUSE)) {
+            makeFullHouse(p);
+            HandType hand = p.getHandType();
+            boolean isFullHouse = hand == HandType.HAND_FULL_HOUSE;
+            assertTrue(p.getGameName() + " failed Full House", isFullHouse);
+            ++testCount;
+        }
+
+        if (p.isValidHandType(HandType.HAND_TWO_PAIRS)) {
+            p.clearHand();
+            makeTwoPairs(p);
+            HandType hand = p.getHandType();
+            boolean isTwoPairs = hand == HandType.HAND_TWO_PAIRS;
+            assertTrue(p.getGameName() + " failed Two Pairs", isTwoPairs);
+            ++testCount;
+        }
+
+        if (p.isValidHandType(HandType.HAND_ROYAL_FLUSH)) {
+            p.clearHand();
+            makeNaturalRoyalFlush(p);
+            HandType hand = p.getHandType();
+            boolean isSameSuit = p.allSameSuit();
+            assertTrue(p.getGameName() + " failed allSameSuit test", isSameSuit);
+            boolean isStraight = p.isStraight();
+            assertTrue(p.getGameName() + " failed isStraight test", isStraight);
+            boolean isRoyalFlush = hand == HandType.HAND_ROYAL_FLUSH;
+            assertTrue(p.getGameName() + " failed Royal Flush", isRoyalFlush);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_STRAIGHT_FLUSH)) {
+            p.clearHand();
+            makeStraightFlush(p);
+            HandType hand = p.getHandType();
+            boolean isStraightFlush = hand == HandType.HAND_STRAIGHT_FLUSH;
+            assertTrue(p.getGameName() + " failed Straight Flush", isStraightFlush);
+            ++testCount;
+        }
+
+        if (p.isValidHandType(HandType.HAND_STRAIGHT)) {
+            p.clearHand();
+            makeStraight(p);
+            HandType hand = p.getHandType();
+            boolean isStraight = hand == HandType.HAND_STRAIGHT;
+            assertTrue(p.getGameName() + " failed Straight", isStraight);
+
+            p.clearHand();
+            makeStraightWithAce(p);
+            hand = p.getHandType();
+            isStraight = hand == HandType.HAND_STRAIGHT;
+            assertTrue(p.getGameName() + " failed Straight (with Ace)", isStraight);
+
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_FLUSH)) {
+            p.clearHand();
+            makeFlush(p);
+            HandType hand = p.getHandType();
+            boolean isFlush = hand == HandType.HAND_FLUSH;
+            assertTrue(p.getGameName() + " failed Flush", isFlush);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_THREE_OF_A_KIND)) {
+            p.clearHand();
+            makeThreeOfAKind(p);
+            HandType hand = p.getHandType();
+            boolean isThreeOfAKind = hand == HandType.HAND_THREE_OF_A_KIND;
+            assertTrue(p.getGameName() + " failed Three of a Kind", isThreeOfAKind);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_FOUR_OF_A_KIND)) {
+            p.clearHand();
+            makeFourOfAKind(p);
+            HandType hand = p.getHandType();
+            boolean isFourOfAKind = hand == HandType.HAND_FOUR_OF_A_KIND;
+            assertTrue(p.getGameName() + " failed Four of a Kind", isFourOfAKind);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_JACKS_OR_BETTER)) {
+            p.clearHand();
+            makeJacksOrBetter(p);
+            HandType hand = p.getHandType();
+            boolean isJacksOrBetter = hand == HandType.HAND_JACKS_OR_BETTER;
+            assertTrue(p.getGameName() + " failed Jacks or Better", isJacksOrBetter);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_FOUR_ACES)) {
+            p.clearHand();
+            makeFourAces(p);
+            HandType hand = p.getHandType();
+            boolean isFourAces = hand == HandType.HAND_FOUR_ACES;
+            assertTrue(p.getGameName() + " failed Four Aces", isFourAces);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_FOUR_FACES)) {
+            p.clearHand();
+            makeFourFaces(p);
+            HandType hand = p.getHandType();
+            boolean isFourFaces = hand == HandType.HAND_FOUR_FACES;
+            assertTrue(p.getGameName() + " failed Four Faces", isFourFaces);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_FOUR_2_TO_4)) {
+            p.clearHand();
+            makeFour2to4(p);
+            HandType hand = p.getHandType();
+            boolean isFour2to4 = hand == HandType.HAND_FOUR_2_TO_4;
+            assertTrue(p.getGameName() + " failed Four 2 to 4", isFour2to4);
+            ++testCount;
+
+            p.clearHand();
+            makeFour5toK(p);
+            hand = p.getHandType();
+            boolean isFour5toK = hand == HandType.HAND_FOUR_5_TO_K;
+            assertTrue(p.getGameName() + " failed Four 5 to K", isFour5toK);
+            ++testCount;
+        }
+
+        if(p.isValidHandType(HandType.HAND_FOUR_ACES_AND_2_TO_4)) {
+            p.clearHand();
+            makeFourAcesAnd2to4(p);
+            HandType hand = p.getHandType();
+            boolean isFourAcesAnd2to4 = hand == HandType.HAND_FOUR_ACES_AND_2_TO_4;
+            assertTrue(p.getGameName() + " failed Four Aces and 2 to 4", isFourAcesAnd2to4);
+            ++testCount;
+
+            p.clearHand();
+            makeFour2to4AndAce(p);
+            hand = p.getHandType();
+            boolean isFour2to4AndAce = hand == HandType.HAND_FOUR_2_TO_4_AND_ACE;
+            assertTrue(p.getGameName() + " failed Four 2 to 4 and Ace", isFour2to4AndAce);
+            ++testCount;
+        }
 
         p.clearHand();
         int size = p.size();
         assertEquals(0, size);
 
-        makeTwoPairs(p);
-        hand = p.getHandType();
-        boolean isTwoPairs = hand == HandType.HAND_TWO_PAIRS;
-        assertEquals(true, isTwoPairs);
-
-        p.clearHand();
-        makeNaturalRoyalFlush(p);
-        hand = p.getHandType();
-        boolean isSameSuit = p.allSameSuit();
-        assertEquals(true, isSameSuit);
-        boolean isStraight = p.isStraight();
-        assertEquals(true, isStraight);
-        boolean isRoyalFlush = hand == HandType.HAND_ROYAL_FLUSH;
-        assertEquals(true, isRoyalFlush);
-
-        p.clearHand();
-        makeStraight(p);
-        hand = p.getHandType();
-        isStraight = hand == HandType.HAND_STRAIGHT;
-        assertEquals(true, isStraight);
-
-        p.clearHand();
-        makeThreeOfAKind(p);
-        hand = p.getHandType();
-        boolean isThreeOfAKind = hand == HandType.HAND_THREE_OF_A_KIND;
-        assertEquals(true, isThreeOfAKind);
-
-        p.clearHand();
-        makeJacksOrBetter(p);
-        hand = p.getHandType();
-        boolean isJacksOrBetter = hand == HandType.HAND_JACKS_OR_BETTER;
-        assertEquals(true, isJacksOrBetter);
+        return testCount;
     }
 
     private void makeNaturalRoyalFlush(PokerHand p) {
@@ -163,6 +380,30 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         p.addCard(new PokerCard(Rank.NINE, Suit.DIAMONDS));
         p.addCard(new PokerCard(Rank.SEVEN, Suit.DIAMONDS));
         p.addCard(new PokerCard(Rank.SIX, Suit.DIAMONDS));
+    }
+
+    private void makeStraightWithAce(PokerHand p) {
+        p.addCard(new PokerCard(Rank.DEUCE, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.THREE, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.FIVE, Suit.SPADES));
+        p.addCard(new PokerCard(Rank.ACE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.FOUR, Suit.DIAMONDS));
+    }
+
+    private void makeFlush(PokerHand p) {
+        p.addCard(new PokerCard(Rank.THREE, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.QUEEN, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.FIVE, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.SIX, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.NINE, Suit.CLUBS));
+    }
+
+    private void makeStraightFlush(PokerHand p) {
+        p.addCard(new PokerCard(Rank.SIX, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.EIGHT, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.SEVEN, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.TEN, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.NINE, Suit.HEARTS));
     }
 
     private void makeFullHouse(PokerHand p) {
@@ -203,5 +444,53 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         p.addCard(new PokerCard(Rank.JACK, Suit.CLUBS));
         p.addCard(new PokerCard(Rank.SIX, Suit.HEARTS));
         p.addCard(new PokerCard(Rank.DEUCE, Suit.SPADES));
+    }
+
+    private void makeFourAces(PokerHand p) {
+        p.addCard(new PokerCard(Rank.ACE, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.SIX, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.SPADES));
+    }
+
+    private void makeFourAcesAnd2to4(PokerHand p) {
+        p.addCard(new PokerCard(Rank.ACE, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.FOUR, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.SPADES));
+    }
+
+    private void makeFour2to4(PokerHand p) {
+        p.addCard(new PokerCard(Rank.THREE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.THREE, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.THREE, Suit.SPADES));
+        p.addCard(new PokerCard(Rank.SEVEN, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.THREE, Suit.CLUBS));
+    }
+
+    private void makeFour2to4AndAce(PokerHand p) {
+        p.addCard(new PokerCard(Rank.FOUR, Suit.SPADES));
+        p.addCard(new PokerCard(Rank.FOUR, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.FOUR, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.ACE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.FOUR, Suit.CLUBS));
+    }
+
+    private void makeFour5toK(PokerHand p) {
+        p.addCard(new PokerCard(Rank.NINE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.THREE, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.NINE, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.NINE, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.NINE, Suit.SPADES));
+    }
+
+    private void makeFourFaces(PokerHand p) {
+        p.addCard(new PokerCard(Rank.KING, Suit.HEARTS));
+        p.addCard(new PokerCard(Rank.KING, Suit.DIAMONDS));
+        p.addCard(new PokerCard(Rank.KING, Suit.CLUBS));
+        p.addCard(new PokerCard(Rank.KING, Suit.SPADES));
+        p.addCard(new PokerCard(Rank.FIVE, Suit.SPADES));
     }
 }

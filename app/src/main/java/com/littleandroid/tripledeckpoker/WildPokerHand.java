@@ -136,78 +136,83 @@ public abstract class WildPokerHand extends PokerHand {
 
     }
 
-    @Override
-    public boolean isStraight() {
-        boolean straight = false;
-        int lowIndex = -1;
-        int highIndex = -1;
-
-        for(int i = 0; i < size() && lowIndex < 0; ++i) {
+    private PokerCard getLowCard() {
+        PokerCard lowCard = null;
+        for(int i = 0; i < size() && lowCard == null; ++i) {
             PokerCard c = getSortedCard(i);
             if(c.isWild() == false) {
-                lowIndex = i;
+                lowCard = c;
             }
         }
+        return lowCard;
+    }
 
-        for(int j = size() - 1; j >= 0 && highIndex < 0; --j) {
+    private PokerCard getHighCard() {
+        PokerCard highCard = null;
+        for(int j = size() - 1; j >= 0 && highCard == null; --j) {
             PokerCard c = getSortedCard(j);
             if(c.isWild() == false) {
-                highIndex = j;
+                highCard = c;
             }
         }
+        return highCard;
+    }
 
-        if(lowIndex == highIndex) {
-            if(getWildCount() == PLAY_SIZE - 1) {
-                straight = true;
-            }
-        }
-        else if(getSortedCardRank(lowIndex) != Rank.ACE) {
-            /* assumes only wild cards will be deuces or jokers, which will be at either end of a sorted hand. */
-            int wilds = getWildCount();
-            int count = highIndex - lowIndex;
-            for (int k = 1; k < count; ++k) {
-                if (getSortedCardRank(lowIndex).ordinal() + k != getSortedCardRank(lowIndex + k).ordinal()) {
-                    --wilds;
-                }
-            }
-            if (wilds == 0) {
-                straight = true;
-            }
+    @Override
+    public boolean isStraight() {
+        boolean straight = true;
+        int wildCount = getWildCount();
+
+        if(wildCount == 0) {
+            straight = super.isStraight();
         }
         else {
-            int wilds = getWildCount();
-            if(getSortedCardRank(highIndex).ordinal() <= Rank.FIVE.ordinal()) {
-                if(!isInHand(Rank.DEUCE)) {
-                    --wilds;
+            PokerCard lowCard = getLowCard();
+            PokerCard highCard = getHighCard();
+
+            if (lowCard != null && highCard != null) {
+
+                boolean aceIsHigh = (lowCard.getRank() == Rank.ACE && highCard.getRank().ordinal() >= Rank.TEN.ordinal());
+                if(aceIsHigh) {
+                    // if aceIsHigh, then we need 10JQKA
+                    int a = getRankCount(Rank.ACE);
+                    int t = getRankCount(Rank.TEN);
+                    int j = getRankCount(Rank.JACK);
+                    int q = getRankCount(Rank.QUEEN);
+                    int k = getRankCount(Rank.KING);
+                    if(a > 1 || t > 1 || j > 1 || q > 1 || k > 1) {
+                        straight = false;
+                    }
+                    else if(a + t + j + q + k +wildCount == PLAY_SIZE) {
+                        straight = true;
+                    }
                 }
-                if(!isInHand(Rank.THREE)) {
-                    --wilds;
+                else if(highCard.getRank().ordinal() - lowCard.getRank().ordinal() >= PLAY_SIZE) {
+                    straight = false;
                 }
-                if(!isInHand(Rank.FOUR)) {
-                    --wilds;
-                }
-                if(!isInHand(Rank.FIVE)) {
-                    --wilds;
+                else {
+                    int count = 0;
+                    for(int i = 0; i < size() && straight; ++i) {
+                        PokerCard c = getSortedCard(i);
+                        if(c.isWild() == false) {
+                            int rankCount = getRankCount(c.getRank());
+                            if(rankCount > 1) {
+                                straight = false;
+                            }
+                            else if(rankCount == 1) {
+                                ++count;
+                            }
+                        }
+                    }
+
+                    if(count + wildCount != PLAY_SIZE) {
+                        straight = false;
+                    }
                 }
             }
             else {
-                if(!isInHand(Rank.TEN)) {
-                    --wilds;
-                }
-                if(!isInHand(Rank.JACK)) {
-                    --wilds;
-                }
-                if(!isInHand(Rank.QUEEN)) {
-                    --wilds;
-                }
-                if(!isInHand(Rank.KING)) {
-                    --wilds;
-                }
+                straight = false;
             }
-            if(wilds == 0) {
-                straight = true;
-            }
-
         }
 
         return straight;
@@ -216,26 +221,14 @@ public abstract class WildPokerHand extends PokerHand {
     @Override
     public boolean isFullHouse() {
         boolean fullHouse = false;
-        int lowIndex = -1;
-        int highIndex = -1;
+        PokerCard lowCard = getLowCard();
+        PokerCard highCard = getHighCard();
 
-        for(int i = 0; i < size() && lowIndex < 0; ++i) {
-            PokerCard c = getSortedCard(i);
-            if(c.isWild() == false) {
-                lowIndex = i;
-            }
-        }
-
-        for(int j = size() - 1; j >= 0 && highIndex < 0; --j) {
-            PokerCard c = getSortedCard(j);
-            if(c.isWild() == false) {
-                highIndex = j;
-            }
-        }
-
-        if(lowIndex != highIndex) {
-            if(getRankCount(getSortedCardRank(lowIndex)) + getRankCount(getSortedCardRank(highIndex)) + getWildCount() == PLAY_SIZE) {
-                fullHouse = true;
+        if(lowCard != null && highCard != null) {
+            if (lowCard.getRank() != highCard.getRank()) {
+                if (getRankCount(lowCard.getRank()) + getRankCount(highCard.getRank()) + getWildCount() == PLAY_SIZE) {
+                    fullHouse = true;
+                }
             }
         }
 
