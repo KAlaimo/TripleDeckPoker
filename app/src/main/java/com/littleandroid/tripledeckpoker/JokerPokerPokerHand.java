@@ -37,8 +37,15 @@ public class JokerPokerPokerHand extends WildPokerHand {
         int k = getRankCount(Rank.KING);
         int a = getRankCount(Rank.ACE);
         int w = getWildCount();
+        boolean isKingsOrBetter = false;
 
-        return (k+a+w == size());
+        if(k == 2 || a == 2) {
+            isKingsOrBetter = true;
+        } else if((k == 1 && w >= 1) || (a == 1 && w >= 1)) {
+            isKingsOrBetter = true;
+        }
+
+        return isKingsOrBetter;
 
     }
 
